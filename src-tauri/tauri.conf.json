@@ -1,6 +1,6 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-  "productName": "vue-element-admin",
+  "productName": "admin",
   "version": "0.1.0",
   "identifier": "com.tauri.build",
   "build": {
@@ -12,11 +12,11 @@
   "app": {
     "windows": [
       {
-        "title": "vue-element-admin",
-        "width": 800,
-        "height": 600,
+        "title": "admin",
+        "width": 1200,
+        "height": 1000,
         "resizable": true,
-        "fullscreen": false
+        "fullscreen": true
       }
     ],
     "security": {
