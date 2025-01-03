@@ -44,6 +44,7 @@
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2.2.0",
+    "@tauri-apps/plugin-fs": "^2.2.0",
     "@vue/cli-plugin-babel": "4.4.4",
     "@vue/cli-plugin-eslint": "4.4.4",
     "@vue/cli-plugin-unit-jest": "4.4.4",
