@@ -143,7 +143,7 @@ export default {
           this.loading = true
           this.$store.dispatch('user/login', this.loginForm)
             .then(res=> {
-              console.log("跳转");
+              console.log("跳转",this.redirect);
               this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
               this.loading = false
             })

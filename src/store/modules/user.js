@@ -40,6 +40,7 @@ const actions = {
       login({ username: username.trim(), password: password })
         .then((response) => {
           const { Rows } = response;
+          console.log("获取信息成功Rows", Rows);
           commit("SET_USER_INFO", Rows);
           commit("SET_TOKEN", "xxx");
           setToken("xxx");

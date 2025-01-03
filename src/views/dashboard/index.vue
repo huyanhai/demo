@@ -287,9 +287,9 @@ export default {
       this.$refs.homeRef.style.height = `${parentElement.getBoundingClientRect().height}px`;
     }
 
-    // setInterval(() => {
-    //   this.GetProtVal();
-    // }, 2000);
+    setInterval(() => {
+      this.GetProtVal();
+    }, 2000);
   },
 
   created() {
