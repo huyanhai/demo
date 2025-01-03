@@ -5,9 +5,27 @@
         <!-- Left Section -->
         <div class="left-panel">
           <div class="category-buttons">
-            <button class="btn-secondary max-50" :class="activeLeft === 1 && 'btn-primary'" @click="selectType(1)">成品</button>
-            <button class="btn-secondary max-50" :class="activeLeft === 2 && 'btn-primary'" @click="selectType(2)">材料</button>
-            <button class="btn-secondary max-50" :class="activeLeft === 3 && 'btn-primary'" @click="selectType(3)">皮重</button>
+            <button
+              class="btn-secondary max-50"
+              :class="activeLeft === 1 && 'btn-primary'"
+              @click="selectType(1)"
+            >
+              成品
+            </button>
+            <button
+              class="btn-secondary max-50"
+              :class="activeLeft === 2 && 'btn-primary'"
+              @click="selectType(2)"
+            >
+              材料
+            </button>
+            <button
+              class="btn-secondary max-50"
+              :class="activeLeft === 3 && 'btn-primary'"
+              @click="selectType(3)"
+            >
+              皮重
+            </button>
           </div>
 
           <div class="form-group">
@@ -55,11 +73,17 @@
                 <option value="1">一号地磅</option>
               </select> -->
               <select class="is-text" v-model="selectdb">
-                <option v-for="item in dbList" :value="item.Id">{{ item.Id }}号地磅</option>
+                <option v-for="item in dbList" :value="item.Id">
+                  {{ item.Id }}号地磅
+                </option>
               </select>
             </div>
             <div class="status">
-              <el-radio-group v-model="radio" fill="#00BEA4" text-color="#00BEA4">
+              <el-radio-group
+                v-model="radio"
+                fill="#00BEA4"
+                text-color="#00BEA4"
+              >
                 <el-radio :label="1">正常</el-radio>
                 <el-radio :label="2">退料</el-radio>
               </el-radio-group>
@@ -68,8 +92,18 @@
 
           <div class="show-container">
             <div class="show-l">
-              <button @click="selectmode(1)" :class="activeMiddle === 1 && 'active'">自动</button>
-              <button @click="selectmode(2)" :class="activeMiddle === 2 && 'active'">手动</button>
+              <button
+                @click="selectmode(1)"
+                :class="activeMiddle === 1 && 'active'"
+              >
+                自动
+              </button>
+              <button
+                @click="selectmode(2)"
+                :class="activeMiddle === 2 && 'active'"
+              >
+                手动
+              </button>
             </div>
             <div class="show-m">{{ count }}</div>
             <button class="show-r" @click="SaveWeight">称重</button>
@@ -89,42 +123,91 @@
                         showCardNo = true;
                       }
                     "
-                    @blur="showCardNo = false"
+                    @blur="cardItemClick()"
                   />
                   <div class="card-no" v-show="CarNum && showCardNo">
-                    <span class="no-item" v-for="(item, index) in cardListFilter" :key="index">{{ item.busnumber }}</span>
+                    <span
+                      class="no-item"
+                      v-for="(item, index) in cardListFilter"
+                      :key="index"
+                      @click="cardItemClick(item)"
+                    >
+                      {{ item.busnumber }}
+                    </span>
                   </div>
                 </div>
                 <button @click="GetCarNum">识别</button>
               </div>
               <div class="input-group">
                 <label>毛重(kg)</label>
-                <input type="number" v-model="Gross" :readonly="readonly" @change="WeightChange" />
+                <input
+                  type="number"
+                  v-model="Gross"
+                  :readonly="readonly"
+                  @change="WeightChange"
+                />
                 <div class="count">
-                  <input type="number" v-model="AddGross" :readonly="jlonly" @change="WeightChange" />
-                  <button class="left" :readonly="jlonly" @click="AddGrossWeight(-100)">-</button>
-                  <button class="right" :readonly="jlonly" @click="AddGrossWeight(100)">+</button>
+                  <input
+                    type="number"
+                    v-model="AddGross"
+                    :readonly="jlonly"
+                    @change="WeightChange"
+                  />
+                  <button
+                    class="left"
+                    :readonly="jlonly"
+                    @click="AddGrossWeight(-100)"
+                  >
+                    -
+                  </button>
+                  <button
+                    class="right"
+                    :readonly="jlonly"
+                    @click="AddGrossWeight(100)"
+                  >
+                    +
+                  </button>
                 </div>
               </div>
               <div class="input-group xz-width">
                 <label>皮重(kg)</label>
-                <input type="number" v-model="tare" :readonly="readonly" @change="WeightChange" />
+                <input
+                  type="number"
+                  v-model="tare"
+                  :readonly="readonly"
+                  @change="WeightChange"
+                />
               </div>
               <div class="input-group xz-width">
                 <label>净重(kg)</label>
-                <input type="number" v-model="Print" :readonly="readonly" @change="WeightChange" />
+                <input
+                  type="number"
+                  v-model="Print"
+                  :readonly="readonly"
+                  @change="WeightChange"
+                />
               </div>
               <el-row :gutter="20">
                 <el-col :span="12">
                   <div class="input-group">
                     <label>扣除重量(kg)</label>
-                    <input type="number" v-model="DeductWeight" :readonly="jlonly" @change="WeightChange" />
+                    <input
+                      type="number"
+                      v-model="DeductWeight"
+                      :readonly="jlonly"
+                      @change="WeightChange"
+                    />
                   </div>
                 </el-col>
                 <el-col :span="12">
                   <div class="input-group">
                     <label>扣除比例(%)</label>
-                    <input type="number" v-model="DeductProportion" :readonly="jlonly" @change="WeightChange" />
+                    <input
+                      type="number"
+                      v-model="DeductProportion"
+                      :readonly="jlonly"
+                      @change="WeightChange"
+                    />
                   </div>
                 </el-col>
               </el-row>
@@ -132,7 +215,11 @@
                 <el-col :span="12">
                   <div class="input-group">
                     <label>供方重量(kg)</label>
-                    <input type="number" v-model="SuppilerWeight" :readonly="jlonly" />
+                    <input
+                      type="number"
+                      v-model="SuppilerWeight"
+                      :readonly="jlonly"
+                    />
                   </div>
                 </el-col>
                 <el-col :span="12">
@@ -158,12 +245,21 @@
             <el-table-column prop="date" label="序号"> </el-table-column>
             <el-table-column prop="BusNumber" label="车牌号"> </el-table-column>
             <el-table-column prop="GrossWeight" label="毛重"> </el-table-column>
-            <el-table-column prop="suppliername" label="物料单位"> </el-table-column>
-            <el-table-column prop="materialname" label="材料规格"> </el-table-column>
-            <el-table-column prop="InitialDate" label="进场时间"> </el-table-column>
+            <el-table-column prop="suppliername" label="物料单位">
+            </el-table-column>
+            <el-table-column prop="materialname" label="材料规格">
+            </el-table-column>
+            <el-table-column prop="InitialDate" label="进场时间">
+            </el-table-column>
             <el-table-column prop="IsChecked" label="检验结果">
               <template slot-scope="scope">
-                <span>{{ scope.row.IsChecked == 0 ? "未检测" : scope.row.IsChecked == 1 ? "合格" : "不合格" }}</span>
+                <span>{{
+                  scope.row.IsChecked == 0
+                    ? "未检测"
+                    : scope.row.IsChecked == 1
+                    ? "合格"
+                    : "不合格"
+                }}</span>
               </template>
             </el-table-column>
           </el-table>
@@ -216,12 +312,32 @@
         </div>
       </div>
     </div>
-    <Dialog v-if="showDialog" :activeLeft="activeLeft" :visible.sync="showDialog" ref="child" @data-received="handleDataReceived" />
+    <Dialog
+      v-if="showDialog"
+      :activeLeft="activeLeft"
+      :visible.sync="showDialog"
+      ref="child"
+      @data-received="handleDataReceived"
+    />
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
-import { GetPZList, GetCPList, GetWPList, GetHPList, SubmitWeight, InPrint, InPrintXC, GetCarNum, GetTotal, GetComPortList, AddOrder, GetProtVal, GetAllCarNum } from "@/api/Weight";
+import {
+  GetPZList,
+  GetCPList,
+  GetWPList,
+  GetHPList,
+  SubmitWeight,
+  InPrint,
+  InPrintXC,
+  GetCarNum,
+  GetTotal,
+  GetComPortList,
+  AddOrder,
+  GetProtVal,
+  GetAllCarNum,
+} from "@/api/Weight";
 import Dialog from "./dialog.vue";
 import axios from "axios";
 
@@ -278,13 +394,17 @@ export default {
   computed: {
     ...mapGetters(["roles"]),
     cardListFilter() {
-      return this.cardList.filter((item) => item.busnumber?.includes(this.CarNum));
+      return this.cardList.filter((item) =>
+        item.busnumber?.includes(this.CarNum)
+      );
     },
   },
   mounted() {
     const parentElement = this.$refs.homeRef.parentElement;
     if (parentElement) {
-      this.$refs.homeRef.style.height = `${parentElement.getBoundingClientRect().height}px`;
+      this.$refs.homeRef.style.height = `${
+        parentElement.getBoundingClientRect().height
+      }px`;
     }
 
     setInterval(() => {
@@ -299,6 +419,15 @@ export default {
     this.GetAllCarNum();
   },
   methods: {
+    cardItemClick(item) {
+      if (item) {
+        this.CarNum = item.busnumber;
+      }
+      const timer = setTimeout(() => {
+        this.showCardNo = false;
+        clearTimeout(timer);
+      }, 200);
+    },
     GetAllCarNum() {
       GetAllCarNum().then((res) => {
         this.cardList = res.Rows;
@@ -347,7 +476,10 @@ export default {
     },
     AddGrossWeight(data) {
       this.AddGross = this.AddGross + data;
-      this.Print = parseInt(this.Gross, 10) - parseInt(this.tare, 10) + parseInt(this.AddGross, 10);
+      this.Print =
+        parseInt(this.Gross, 10) -
+        parseInt(this.tare, 10) +
+        parseInt(this.AddGross, 10);
     },
     WeightChange() {
       console.log(this.Gross - this.tare);
@@ -357,10 +489,18 @@ export default {
       }
       if (this.WeighType == 2) {
         this.Print =
-          parseInt(this.Gross, 10) - parseInt(this.tare, 10) + parseInt(this.AddGross, 10) - parseInt(this.DeductWeight, 10) - (parseInt(this.Gross, 10) * parseInt(this.DeductProportion, 10)) / 100;
+          parseInt(this.Gross, 10) -
+          parseInt(this.tare, 10) +
+          parseInt(this.AddGross, 10) -
+          parseInt(this.DeductWeight, 10) -
+          (parseInt(this.Gross, 10) * parseInt(this.DeductProportion, 10)) /
+            100;
       }
       if (this.WeighType == 4) {
-        this.Print = parseInt(this.Gross, 10) - parseInt(this.tare, 10) + parseInt(this.AddGross, 10);
+        this.Print =
+          parseInt(this.Gross, 10) -
+          parseInt(this.tare, 10) +
+          parseInt(this.AddGross, 10);
       }
     },
     //选择过磅类型
@@ -448,28 +588,34 @@ export default {
     },
     // 获取车牌
     GetCarNum() {
-      let cnum = this.CarNum;
-      var data = {
-        cnum: cnum,
-      };
-      GetCarNum(data).then((res) => {
-        let car = res.Rows;
-        if (car.length > 0) {
-          this.CarNum = car[0].carNum;
-          if (this.activeLeft == 1) {
-            this.tare = car[0].tare;
+      const timer = setTimeout(() => {
+        clearTimeout(timer);
+        let cnum = this.CarNum;
+        var data = {
+          cnum: cnum,
+        };
+        GetCarNum(data).then((res) => {
+          let car = res.Rows;
+          if (car.length > 0) {
+            this.CarNum = car[0].carNum;
+            if (this.activeLeft == 1) {
+              this.tare = car[0].tare;
+            } else {
+              this.tare = 0;
+            }
           } else {
+            this.CarNum = cnum;
             this.tare = 0;
           }
-        } else {
-          this.CarNum = cnum;
-          this.tare = 0;
-        }
 
-        this.Print = parseInt(this.Gross) + parseInt(this.AddGross) - parseInt(this.tare);
+          this.Print =
+            parseInt(this.Gross) +
+            parseInt(this.AddGross) -
+            parseInt(this.tare);
 
-        //this.PZList = res.data
-      });
+          //this.PZList = res.data
+        });
+      }, 300);
     },
     handleDataReceived(data) {
       this.code = data.code;
@@ -549,21 +695,31 @@ export default {
             if (confirm("保存成功,是否打印?")) {
               if (this.WeighType == 2) {
                 let queryParams = { intType: 1, strDataID: res.WeighingDataID };
-                axios.post("http://localhost:44321/api/api/Weigh/InPrint", queryParams).then(function (success) {
-                  //success 是自定义响应的参数名
-                  //返回成功的响应
-                  console.log(success); //响应是一个 JSON 格式(axios 自动封装的)
-                  alert("打印成功!");
-                });
+                axios
+                  .post(
+                    "http://localhost:44321/api/api/Weigh/InPrint",
+                    queryParams
+                  )
+                  .then(function (success) {
+                    //success 是自定义响应的参数名
+                    //返回成功的响应
+                    console.log(success); //响应是一个 JSON 格式(axios 自动封装的)
+                    alert("打印成功!");
+                  });
               }
               if (this.WeighType == 4) {
                 let queryParams = { intType: 1, strDataID: res.WeighingDataID };
-                axios.post("http://localhost:44321/api/api/Weigh/InPrintXC", queryParams).then(function (success) {
-                  //success 是自定义响应的参数名
-                  //返回成功的响应
-                  console.log(success); //响应是一个 JSON 格式(axios 自动封装的)
-                  alert("打印成功!");
-                });
+                axios
+                  .post(
+                    "http://localhost:44321/api/api/Weigh/InPrintXC",
+                    queryParams
+                  )
+                  .then(function (success) {
+                    //success 是自定义响应的参数名
+                    //返回成功的响应
+                    console.log(success); //响应是一个 JSON 格式(axios 自动封装的)
+                    alert("打印成功!");
+                  });
               }
             }
           }

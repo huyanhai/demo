@@ -3,6 +3,17 @@ import { MessageBox, Message } from "element-ui";
 import store from "@/store";
 import { getToken } from "@/utils/auth";
 
+import { readTextFile, BaseDirectory } from "@tauri-apps/plugin-fs";
+
+const getData = async () => {
+  const file = await readTextFile("env.txt", {
+    baseDir: BaseDirectory.Desktop,
+  });
+  file && (service.defaults.baseURL = file);
+};
+
+getData();
+
 // create an axios instance
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
